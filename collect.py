@@ -25,8 +25,10 @@ sys.path.insert(0, HERE)
 from parse import parse_72hr, parse_rollcall, parse_30day, last_updated  # noqa: E402
 from locations import resolve, place, gazetteer, US_STATES, COUNTRIES, COUNTRY_ALIASES  # noqa: E402
 
-ROOT = os.path.dirname(HERE)
-SITE = os.path.join(ROOT, "site")
+# works with the folder layout (collector/ + site/) or with every file uploaded flat in one folder
+FLAT = os.path.exists(os.path.join(HERE, "index.html"))
+ROOT = HERE if FLAT else os.path.dirname(HERE)
+SITE = HERE if FLAT else os.path.join(ROOT, "site")
 DATA = os.path.join(ROOT, "data")
 UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36"}
 HISTORY_DAYS = 120
