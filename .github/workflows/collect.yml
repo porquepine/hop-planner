@@ -1,0 +1,66 @@
+name: Collect Space-A schedules
+
+on:
+  schedule:
+    - cron: "17 */3 * * *"   # every 3 hours
+  workflow_dispatch:         # "Run workflow" button
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: collect
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PDF + OCR tools
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils tesseract-ocr
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python packages
+        run: pip install -q -r requirements.txt
+
+      - name: Collect schedules and roll calls
+        env:
+          SPACEA_USERS: ${{ secrets.SPACEA_USERS }}
+          SPACEA_MASTER_KEY: ${{ secrets.SPACEA_MASTER_KEY }}
+        run: python collect.py
+
+      - name: Save the encrypted bundle
+        run: |
+          git config user.name "hop-planner-bot"
+          git config user.email "hop-planner-bot@users.noreply.github.com"
+          git add data.json
+          git diff --cached --quiet || git commit -m "Update schedules $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
+
+      - name: Build the website folder
+        run: |
+          mkdir -p _site
+          cp index.html robots.txt data.json _site/
+          touch _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: collect
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
