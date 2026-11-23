@@ -2,7 +2,7 @@ name: Collect Space-A schedules
 
 on:
   schedule:
-    - cron: "17 */3 * * *"   # every 3 hours
+    - cron: "17 */3 * * *"   # every 3 hours (runs when the Mac collector is awake)
   workflow_dispatch:         # "Run workflow" button
 
 permissions:
@@ -16,26 +16,24 @@ concurrency:
 
 jobs:
   collect:
-    runs-on: ubuntu-latest
+    # Runs on the owner's Mac (AMC blocks GitHub's own servers)
+    runs-on: [self-hosted, hop-collector]
     timeout-minutes: 30
+    env:
+      PATH: /opt/homebrew/bin:/opt/homebrew/opt/gnu-tar/libexec/gnubin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install PDF + OCR tools
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils tesseract-ocr
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install Python packages
-        run: pip install -q -r requirements.txt
+      - name: Python packages
+        run: |
+          python3.12 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install -q -r requirements.txt
 
       - name: Collect schedules and roll calls
         env:
           SPACEA_USERS: ${{ secrets.SPACEA_USERS }}
           SPACEA_MASTER_KEY: ${{ secrets.SPACEA_MASTER_KEY }}
-        run: python collect.py
+        run: '"$RUNNER_TEMP/venv/bin/python" collect.py'
 
       - name: Save the encrypted bundle
         run: |
@@ -47,7 +45,7 @@ jobs:
 
       - name: Build the website folder
         run: |
-          mkdir -p _site
+          rm -rf _site && mkdir -p _site
           cp index.html robots.txt data.json _site/
           touch _site/.nojekyll
 
