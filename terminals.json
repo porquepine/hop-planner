@@ -1,0 +1,686 @@
+[
+ {
+  "key": "DOV",
+  "name": "Dover AFB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/Dover-AFB-Passenger-Terminal/",
+  "phone": "(302) 677-2854",
+  "facebook": "https://www.facebook.com/DoverPaxTerminal/",
+  "scrape": true
+ },
+ {
+  "key": "CHS",
+  "name": "JB Charleston Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/Joint-Base-Lindsey-Graham-Passenger-Terminal/",
+  "phone": "(843) 963-0114",
+  "facebook": "https://www.facebook.com/search/pages/?q=JB%20Charleston%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "WRI",
+  "name": "JB McGuire-Dix-Lakehurst Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/Joint-Base-MDL-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=JB%20McGuire-Dix-Lakehurst%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "ADW",
+  "name": "JB Andrews Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/Joint-Base-Andrews-Passenger-Terminal/",
+  "phone": "(301) 981-3604",
+  "facebook": "https://www.facebook.com/search/pages/?q=JB%20Andrews%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "BWI",
+  "name": "BWI Airport (AMC Gateway) Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/Baltimore-Washington-International-Airport-Passenger-Terminal/",
+  "phone": "(609) 253-8825",
+  "facebook": "https://www.facebook.com/search/pages/?q=BWI%20Airport%20(AMC%20Gateway)%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "NGU",
+  "name": "NS Norfolk Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/NS-Norfolk-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=NS%20Norfolk%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "SUU",
+  "name": "Travis AFB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/Travis-AFB-Passenger-Terminal/",
+  "phone": "(707) 424-1854",
+  "facebook": "https://www.facebook.com/search/pages/?q=Travis%20AFB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "TCM",
+  "name": "JB Lewis-McChord Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/Joint-Base-Lewis-McChord-Passenger-Terminal/",
+  "phone": "(253) 982-7268",
+  "facebook": "https://www.facebook.com/search/pages/?q=JB%20Lewis-McChord%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "SEA",
+  "name": "Seattle-Tacoma Intl (AMC Gateway) Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/Seattle-Tacoma-International-Gateway/",
+  "phone": "(253) 982-0555",
+  "facebook": "https://www.facebook.com/search/pages/?q=Seattle-Tacoma%20Intl%20(AMC%20Gateway)%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "SKA",
+  "name": "Fairchild AFB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/Fairchild-AFB-Air-Transportation-Function/",
+  "phone": "(509) 247-3406",
+  "facebook": "https://www.facebook.com/search/pages/?q=Fairchild%20AFB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "BLV",
+  "name": "Scott AFB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/Scott-AFB-Air-Transportation-Function/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Scott%20AFB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "IAB",
+  "name": "McConnell AFB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/McConnell-AFB-Air-Transportation-Function/",
+  "phone": "(316) 759-5404",
+  "facebook": "https://www.facebook.com/search/pages/?q=McConnell%20AFB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "LRF",
+  "name": "Little Rock AFB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/Little-Rock-AFB-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Little%20Rock%20AFB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "MCF",
+  "name": "MacDill AFB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/MacDill-AFB-Air-Transportation-Function/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=MacDill%20AFB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "NIP",
+  "name": "NAS Jacksonville Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/NAS-Jacksonville-Passenger-Terminal/",
+  "phone": "(904) 542-3956",
+  "facebook": "https://www.facebook.com/search/pages/?q=NAS%20Jacksonville%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "POB",
+  "name": "Pope AAF / Fort Bragg Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/Pope-Army-Airfield-Passenger-Terminal/",
+  "phone": "(910) 394-1003",
+  "facebook": "https://www.facebook.com/search/pages/?q=Pope%20AAF%20/%20Fort%20Bragg%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "VPS",
+  "name": "Eglin AFB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CONUS-Terminals/Eglin-AFB-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Eglin%20AFB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "AVB",
+  "name": "Aviano AB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/EUCOM-Terminals/Aviano-AB-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Aviano%20AB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "ADA",
+  "name": "Incirlik AB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/EUCOM-Terminals/Incirlik-AB-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Incirlik%20AB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "LGS",
+  "name": "Lajes Field, Azores Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/EUCOM-Terminals/Lajes-Field-AB-Passenger-Terminal/",
+  "phone": "+351 295-5739",
+  "facebook": "https://www.facebook.com/search/pages/?q=Lajes%20Field,%20Azores%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "ROZ",
+  "name": "NS Rota Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/EUCOM-Terminals/Navsta-Rota-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/USNavalStationRota",
+  "scrape": true
+ },
+ {
+  "key": "SIZ",
+  "name": "NAS Sigonella Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/EUCOM-Terminals/Sigonella-NAS-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=NAS%20Sigonella%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "NAP",
+  "name": "NSA Naples Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/EUCOM-Terminals/NSA-Naples-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=NSA%20Naples%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "CHQ",
+  "name": "NSA Souda Bay Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/EUCOM-Terminals/NSA-Souda-Bay-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=NSA%20Souda%20Bay%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "MHZ",
+  "name": "RAF Mildenhall Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/EUCOM-Terminals/RAF-Mildenhall-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=RAF%20Mildenhall%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "RMS",
+  "name": "Ramstein AB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/EUCOM-Terminals/Ramstein-AB-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Ramstein%20AB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "SPM",
+  "name": "Spangdahlem AB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/EUCOM-Terminals/Spangdahlem-AB-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Spangdahlem%20AB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "BAH",
+  "name": "NSA Bahrain Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/EUCOM-Terminals/NSA-Bahrain-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=NSA%20Bahrain%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "UAM",
+  "name": "Andersen AFB, Guam Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/PACOM-Terminals/Andersen-AFB-Passenger-Terminal/",
+  "phone": "(671) 366-6148",
+  "facebook": "https://www.facebook.com/AndersenPassengerTerminal",
+  "scrape": true
+ },
+ {
+  "key": "NKW",
+  "name": "Diego Garcia Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/PACOM-Terminals/Diego-Garcia-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Diego%20Garcia%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "EIL",
+  "name": "Eielson AFB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/PACOM-Terminals/Eielson-AFB-Passenger-Terminal/",
+  "phone": "(907) 377-1623",
+  "facebook": "https://www.facebook.com/search/pages/?q=Eielson%20AFB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "EDF",
+  "name": "JB Elmendorf-Richardson Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/PACOM-Terminals/Joint-Base-Elmendorf-Richardson-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=JB%20Elmendorf-Richardson%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "HIK",
+  "name": "JB Pearl Harbor-Hickam Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/PACOM-Terminals/Joint-Base-Pearl-Harbor-Hickam-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=JB%20Pearl%20Harbor-Hickam%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "DNA",
+  "name": "Kadena AB, Okinawa Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/PACOM-Terminals/Kadena-AB-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Kadena%20AB,%20Okinawa%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "OSN",
+  "name": "Osan AB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/PACOM-Terminals/Osan-AB-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Osan%20AB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "QPG",
+  "name": "Paya Lebar AB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/PACOM-Terminals/Paya-Lebar-AB-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Paya%20Lebar%20AB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "OKO",
+  "name": "Yokota AB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/PACOM-Terminals/Yokota-AB-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Yokota%20AB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "XJD",
+  "name": "Al Udeid AB Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CENTCOM-Terminals/379-EAPS-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Al%20Udeid%20AB%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "KWI",
+  "name": "Kuwait (Cargo City) Passenger Terminal",
+  "type": "AMC",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/Terminals/CENTCOM-Terminals/AMC-Kuwait-Cargo-City-Gateway/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Kuwait%20(Cargo%20City)%20Passenger%20Terminal",
+  "scrape": true
+ },
+ {
+  "key": "SKF",
+  "name": "JBSA-Lackland (Kelly Field) Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.jbsa.mil/",
+  "phone": "(210) 925-8714",
+  "facebook": "https://www.facebook.com/search/pages/?q=JBSA-Lackland%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "NFW",
+  "name": "NAS JRB Fort Worth Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.cnic.navy.mil/regions/cnrse/installations/nas_jrb_fort_worth.html",
+  "phone": "(817) 782-6288",
+  "facebook": "https://www.facebook.com/search/pages/?q=NAS%20Fort%20Worth%20JRB%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "DYS",
+  "name": "Dyess AFB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "http://www.dyess.af.mil/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Dyess%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "BIF",
+  "name": "Biggs AAF / Fort Bliss Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://home.army.mil/bliss/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Biggs%20Army%20Airfield%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "EFD",
+  "name": "Ellington Field (147th ATKW) Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.147atkw.ang.af.mil/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Ellington%20Field%20Space%20A",
+  "scrape": false
+ },
+ {
+  "key": "LTS",
+  "name": "Altus AFB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.altus.af.mil/About-Us/Resources/Altus-AFB-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Altus%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "TIK",
+  "name": "Tinker AFB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.tinker.af.mil/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Tinker%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "BAD",
+  "name": "Barksdale AFB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.barksdale.af.mil/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Barksdale%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "MGE",
+  "name": "Dobbins ARB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.dobbins.afrc.af.mil/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Dobbins%20Space%20A",
+  "scrape": false
+ },
+ {
+  "key": "WRB",
+  "name": "Robins AFB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.robins.af.mil/Units/78th-Air-Base-Wing/Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Robins%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "CEF",
+  "name": "Westover ARB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "http://www.westover.afrc.af.mil/AboutUs/Questions.aspx",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Westover%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "MRB",
+  "name": "Martinsburg (167th AW) Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "http://www.167aw.ang.af.mil/Resources/Space-A-Travel/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Martinsburg%20167th%20Airlift%20Wing%20Space%20A",
+  "scrape": false
+ },
+ {
+  "key": "CRW",
+  "name": "McLaughlin ANGB (130th AW) Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.130aw.ang.af.mil/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=130th%20Airlift%20Wing%20Space%20A",
+  "scrape": false
+ },
+ {
+  "key": "PIT",
+  "name": "Pittsburgh ARS Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.pittsburgh.afrc.af.mil/About-Us/Space-A-Program/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Pittsburgh%20ARS%20Space%20A",
+  "scrape": false
+ },
+ {
+  "key": "RIV",
+  "name": "March ARB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.march.afrc.af.mil/Units/Space-A-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=March%20ARB%20Space%20A",
+  "scrape": false
+ },
+ {
+  "key": "OFF",
+  "name": "Offutt AFB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.offutt.af.mil/Units/55th-Wing/55th-Mission-Support-Group/Offutt-AFB-Air-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Offutt%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "LNK",
+  "name": "Lincoln ANGB (155th ARW) Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.155arw.ang.af.mil/Resources/Space-Available/72-Hour-Schedule",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=155th%20Air%20Refueling%20Wing%20Space%20A",
+  "scrape": false
+ },
+ {
+  "key": "NUW",
+  "name": "NAS Whidbey Island Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://cnrnw.cnic.navy.mil/Installations/NAS-Whidbey-Island/Operations-and-Management/Operations/Space-A-Flights/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=NAS%20Whidbey%20Island%20Air%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "NZY",
+  "name": "NAS North Island Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.cnic.navy.mil/regions/cnrsw/installations/navbase_coronado/about/installations/nas_north_island.html",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=NAS%20North%20Island%20Air%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "MEM",
+  "name": "Memphis ANGB (164th AW) Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "http://www.164aw.ang.af.mil/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Memphis%20164th%20Airlift%20Wing%20Space%20A",
+  "scrape": false
+ },
+ {
+  "key": "STJ",
+  "name": "Rosecrans ANGB (139th AW) Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.139aw.ang.af.mil/About-Us/Space-A/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=139th%20Airlift%20Wing%20Space%20A",
+  "scrape": false
+ },
+ {
+  "key": "MSP",
+  "name": "Minneapolis-St Paul ARS (133rd AW) Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "http://www.133aw.ang.af.mil/space-a",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=133rd%20Airlift%20Wing%20Space%20A",
+  "scrape": false
+ },
+ {
+  "key": "SCH",
+  "name": "Stratton ANGB (109th AW) Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "http://www.109aw.ang.af.mil/About/Space-A-Travel/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=109th%20Airlift%20Wing%20Space%20A",
+  "scrape": false
+ },
+ {
+  "key": "PSM",
+  "name": "Pease ANGB (157th ARW) Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.157arw.ang.af.mil/About-Us/Fact-Sheets/Display/Article/446597/space-a-travel/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Pease%20157th%20ARW%20Space%20A",
+  "scrape": false
+ },
+ {
+  "key": "BGR",
+  "name": "Bangor ANGB (101st ARW) Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.101arw.ang.af.mil/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=101st%20ARW%20Space%20A",
+  "scrape": false
+ },
+ {
+  "key": "CLT",
+  "name": "Charlotte ANGB (145th AW) Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.145aw.ang.af.mil/Space-A/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=145th%20Airlift%20Wing%20Space%20A",
+  "scrape": false
+ },
+ {
+  "key": "GUS",
+  "name": "Grissom ARB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "http://www.grissom.afrc.af.mil/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Grissom%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "IAG",
+  "name": "Niagara Falls ARS Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.niagara.afrc.af.mil/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Niagara%20Falls%20ARS%20Space%20A",
+  "scrape": false
+ },
+ {
+  "key": "HIF",
+  "name": "Hill AFB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "http://www.hill.af.mil/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Hill%20AFB%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "LSV",
+  "name": "Nellis AFB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "http://www.nellis.af.mil/Units/SpaceAvailableTravel.aspx",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Nellis%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "LFI",
+  "name": "JB Langley-Eustis Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "http://www.jble.af.mil/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Langley%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "FFO",
+  "name": "Wright-Patterson AFB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.wpafb.af.mil/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Wright-Patterson%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "SZL",
+  "name": "Whiteman AFB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "http://www.whiteman.af.mil/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Whiteman%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "NBW",
+  "name": "NS Guantanamo Bay Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.amc.af.mil/AMC-Travel-Site/AMC-Pax-Terminal-Locations/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Guantanamo%20Bay%20Air%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "MSJ",
+  "name": "Misawa AB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "http://www.misawa.af.mil/About-Us/Misawa-Passenger-Terminal",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Misawa%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "IWA",
+  "name": "MCAS Iwakuni Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "https://www.mcasiwakuni.marines.mil/Organizations/Station/AMC-Passenger-Terminal/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Iwakuni%20Passenger%20Terminal",
+  "scrape": false
+ },
+ {
+  "key": "KUV",
+  "name": "Kunsan AB Passenger Terminal",
+  "type": "Non-AMC / Guard / Reserve",
+  "page": "http://www.kunsan.af.mil/",
+  "phone": null,
+  "facebook": "https://www.facebook.com/search/pages/?q=Kunsan%20Passenger%20Terminal",
+  "scrape": false
+ }
+]

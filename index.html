@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<title>Hop Planner · Space-A route finder</title>
+<style>
+:root{
+  --ink:#0f1b2d; --ink2:#43536b; --mute:#7a889c; --line:#e3e8ef; --bg:#f5f7fa; --card:#fff;
+  --brand:#1546a0; --brand2:#0b2f73; --sky:#e8f0ff; --ok:#137a4b; --okbg:#e3f5ec; --warn:#9a5b00; --warnbg:#fff3dc;
+  --bad:#a12a2a; --badbg:#fde8e8; --unk:#5b6577; --unkbg:#eef1f5; --r:14px;
+}
+*{box-sizing:border-box} html,body{margin:0}
+body{font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+a{color:var(--brand)} button{font:inherit;cursor:pointer}
+.hidden{display:none!important}
+/* login */
+#login{min-height:100vh;display:grid;place-items:center;background:linear-gradient(160deg,#0b2f73 0%,#1546a0 55%,#3b7be0 100%)}
+.lcard{background:#fff;border-radius:18px;padding:32px 30px;width:min(380px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.lcard h1{margin:0 0 4px;font-size:24px}.lcard p{margin:0 0 20px;color:var(--ink2)}
+label{display:block;font-size:12px;font-weight:600;color:var(--ink2);margin:12px 0 5px;text-transform:uppercase;letter-spacing:.04em}
+input,select{width:100%;padding:11px 12px;border:1px solid #cfd7e3;border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+input:focus,select:focus{outline:2px solid #9bbcf5;border-color:var(--brand)}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:10px;padding:12px 18px;font-weight:600}
+.btn:hover{background:var(--brand2)} .btn.ghost{background:#fff;color:var(--brand);border:1px solid #c9d6ee}
+.btn.small{padding:7px 12px;font-size:13px}
+.err{color:var(--bad);font-size:14px;margin-top:10px;min-height:20px}
+.chk{display:flex;gap:8px;align-items:center;margin-top:12px;font-size:14px;color:var(--ink2)} .chk input{width:auto}
+/* app */
+header{background:var(--brand2);color:#fff}
+.hwrap{max-width:1100px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.logo{font-weight:800;font-size:19px;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+.logo svg{width:24px;height:24px}
+nav{display:flex;gap:4px;flex-wrap:wrap} nav button{background:transparent;border:0;color:#c9d8f5;padding:8px 12px;border-radius:8px;font-weight:600}
+nav button.on,nav button:hover{background:rgba(255,255,255,.12);color:#fff}
+.fresh{margin-left:auto;font-size:13px;color:#c9d8f5} .fresh b{color:#fff}
+.hero{background:linear-gradient(180deg,var(--brand2) 0,var(--brand2) 60px,var(--bg) 60px)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 18px 40px}
+.search{background:var(--card);border-radius:18px;box-shadow:0 8px 30px rgba(15,27,45,.12);padding:18px;display:grid;grid-template-columns:1fr auto 1fr 170px 120px 130px;gap:10px;align-items:end}
+.search .swap{border:1px solid #cfd7e3;background:#fff;border-radius:50%;width:40px;height:40px;margin-bottom:1px;display:grid;place-items:center}
+.search .go{height:45px}
+@media(max-width:900px){.search{grid-template-columns:1fr 1fr}.search .swap{display:none}.search .go{grid-column:1/-1}}
+.ac{position:relative}.acl{position:absolute;z-index:20;left:0;right:0;top:100%;background:#fff;border:1px solid var(--line);border-radius:10px;margin-top:4px;box-shadow:0 10px 30px rgba(0,0,0,.12);max-height:300px;overflow:auto}
+.acl div{padding:9px 12px;cursor:pointer;display:flex;justify-content:space-between;gap:10px}.acl div:hover,.acl div.sel{background:var(--sky)}
+.acl small{color:var(--mute)}
+.opts{display:flex;gap:16px;flex-wrap:wrap;margin:12px 4px 0;color:var(--ink2);font-size:14px;align-items:center}
+.opts select{width:auto;padding:6px 8px}
+.resolved{margin:16px 0 6px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:760px){.resolved{grid-template-columns:1fr}}
+.rbox{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.rbox h4{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--mute)}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--sky);color:var(--brand2);border-radius:999px;padding:3px 10px;margin:3px 4px 0 0;font-size:13px;font-weight:600}
+.chip.alt{background:var(--unkbg);color:var(--ink2);font-weight:500}
+h2{font-size:18px;margin:26px 0 10px} h2 small{font-weight:500;color:var(--mute);font-size:14px}
+.sortbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.sortbar button{border:1px solid #cfd7e3;background:#fff;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;color:var(--ink2)}
+.sortbar button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.itin{background:#fff;border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
+.itin .top{display:flex;gap:14px;align-items:center;padding:14px 16px;cursor:pointer;flex-wrap:wrap}
+.itin .route{font-weight:700;font-size:16px;flex:1;min-width:220px}
+.itin .route small{display:block;font-weight:500;color:var(--mute);font-size:13px}
+.meta{display:flex;gap:18px;color:var(--ink2);font-size:14px;flex-wrap:wrap}.meta b{color:var(--ink);display:block;font-size:15px}
+.badge{display:inline-block;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700}
+.b-ok{background:var(--okbg);color:var(--ok)}.b-warn{background:var(--warnbg);color:var(--warn)}.b-bad{background:var(--badbg);color:var(--bad)}.b-unk{background:var(--unkbg);color:var(--unk)}.b-man{background:#efe6ff;color:#5b2bb5}
+.tag{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand);background:var(--sky);padding:3px 8px;border-radius:6px}
+.legs{border-top:1px solid var(--line);padding:6px 16px 14px;background:#fbfcfe}
+.leg{display:grid;grid-template-columns:92px 22px 1fr;gap:10px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.leg:last-child{border-bottom:0}
+.leg .t{font-weight:700}.leg .t small{display:block;font-weight:500;color:var(--mute);font-size:12px}
+.leg .dot{position:relative}.leg .dot:before{content:"";position:absolute;left:9px;top:6px;width:8px;height:8px;border-radius:50%;background:var(--brand)}
+.leg .dot:after{content:"";position:absolute;left:12px;top:18px;bottom:-14px;width:2px;background:#cdd9ef}
+.leg:last-child .dot:after{display:none}
+.leg h5{margin:0;font-size:15px}.leg .sub{color:var(--ink2);font-size:13px;margin-top:3px}
+.leg .hist{font-size:13px;color:var(--ink2);margin-top:6px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 9px}
+.lay{font-size:13px;color:var(--warn);padding:4px 0 4px 124px}
+.empty{background:#fff;border:1px dashed #c8d2e0;border-radius:var(--r);padding:20px;color:var(--ink2)}
+.hub{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}.hub:last-child{border:0}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);font-size:14px}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f0f3f8;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink2)}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.filters input,.filters select{width:auto;min-width:180px}
+.note{font-size:13px;color:var(--mute);margin-top:18px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.term{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.term h4{margin:0 0 4px;font-size:15px}.term .links{margin-top:8px;display:flex;gap:12px;flex-wrap:wrap}
+.form{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;align-items:end}
+.b-pe{background:#e6eefc;color:#1d4fb8}
+.locbtn{background:none;border:0;color:var(--brand);font-size:13px;font-weight:600;padding:4px 0 0;text-align:left}
+.tpick{text-transform:none;letter-spacing:0;font-size:14px;font-weight:400;color:var(--ink);margin:0;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:4px 10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.tpick:last-child{border:0}.tpick input{width:18px;height:18px}.tpick .n{font-weight:600}.tpick .s{grid-column:2/4;color:var(--ink2);font-size:13px}
+.tpick .d{text-align:right;font-size:13px;color:var(--ink2);white-space:nowrap}
+.ground{display:grid;grid-template-columns:92px 22px 1fr;gap:10px;padding:10px 0;color:var(--ink2);font-size:14px;border-bottom:1px dashed var(--line)}
+.ground .dot:before{content:"";position:absolute;left:8px;top:5px;width:10px;height:10px;border-radius:2px;background:#9aa8bd}.ground .dot{position:relative}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid #c9d6ee;border-top-color:var(--brand);border-radius:50%;animation:sp 1s linear infinite;vertical-align:-3px}
+@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<!-- ===================== LOGIN ===================== -->
+<section id="login">
+  <form class="lcard" id="lform" autocomplete="on">
+    <h1>Hop Planner</h1>
+    <p>Multi-leg Space-A route finder. Sign in to continue.</p>
+    <label for="lu">Username</label><input id="lu" name="username" autocomplete="username" required>
+    <label for="lp">Password</label><input id="lp" name="password" type="password" autocomplete="current-password" required>
+    <div class="chk"><input type="checkbox" id="lrem"><span>Keep me signed in on this device</span></div>
+    <div style="margin-top:18px"><button class="btn" style="width:100%" id="lbtn">Sign in</button></div>
+    <div class="err" id="lerr"></div>
+  </form>
+</section>
+
+<!-- ===================== APP ===================== -->
+<div id="app" class="hidden">
+<header><div class="hwrap">
+  <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M2 16l20-8-6 12-3-5-5-1z"/></svg>Hop Planner</div>
+  <nav id="tabs">
+    <button data-tab="search" class="on">Search</button>
+    <button data-tab="board">Flight board</button>
+    <button data-tab="terminals">Terminals</button>
+    <button data-tab="mine">My flights</button>
+  </nav>
+  <div class="fresh" id="fresh"></div>
+  <button class="btn ghost small" id="logout">Sign out</button>
+</div></header>
+
+<!-- SEARCH -->
+<section data-pane="search">
+ <div class="hero"><div class="wrap" style="padding-top:16px">
+  <div class="search">
+    <div class="ac"><label>From</label><input id="qfrom" placeholder="Your address, city, base, state…" autocomplete="off"><div class="acl hidden"></div><button class="locbtn" id="myloc" type="button">Use my current location</button></div>
+    <button class="swap" id="swap" title="Swap" aria-label="Swap">⇄</button>
+    <div class="ac"><label>To</label><input id="qto" placeholder="Destination address, city, base, country…" autocomplete="off"><div class="acl hidden"></div><div class="locbtn" style="color:var(--mute);font-weight:500">Any address works — we’ll find terminals near it</div></div>
+    <div><label>Earliest departure</label><input id="qdate" type="date"></div>
+    <div><label>Max hops</label><select id="qlegs"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></div>
+    <button class="btn go" id="go">Search</button>
+  </div>
+  <div class="opts">
+    <span>Min connection <select id="qlay"><option value="2">2 h</option><option value="3" selected>3 h</option><option value="6">6 h</option><option value="12">12 h</option></select></span>
+    <span>Nearby terminals within <select id="qrad"><option value="150">150 mi</option><option value="300" selected>300 mi</option><option value="600">600 mi</option></select></span>
+    <span>Search window <select id="qwin"><option value="3">3 days</option><option value="7">7 days</option><option value="14" selected>14 days</option><option value="30">30 days</option><option value="45">45 days</option></select></span>
+    <span>Max wait at a stop <select id="qwait"><option value="1">1 day</option><option value="3" selected>3 days</option><option value="7">7 days</option><option value="14">14 days</option></select></span>
+    <span class="chk" style="margin:0"><input type="checkbox" id="q30" checked>Include 30-day (Patriot Express) schedules</span>
+    <span class="chk" style="margin:0"><input type="checkbox" id="qzero" checked>Include flights showing 0 seats / TBD</span>
+  </div>
+ </div></div>
+ <div class="wrap">
+  <div id="resolved" class="resolved hidden"></div>
+  <div id="results"></div>
+  <p class="note">“Scheduled (30-day)” flights come from monthly Patriot Express lists: roll call time and seat releases are posted about 72 hours before departure. Space-A seats are never guaranteed. Seats marked T (tentative) can change; roll-call times are local to the departing terminal. Arrival times are estimates from distance. Always confirm with the terminal before you travel.</p>
+ </div>
+</section>
+
+<!-- BOARD -->
+<section data-pane="board" class="hidden"><div class="wrap" style="padding-top:18px">
+  <h2>All posted departures <small id="bcount"></small></h2>
+  <div class="filters"><input id="bq" placeholder="Filter by terminal, destination, state…"><select id="bday"></select><select id="bkind"><option value="">72-hour + 30-day</option><option value="72hr">72-hour only</option><option value="30day">30-day only</option></select></div>
+  <div id="board"></div>
+</div></section>
+
+<!-- TERMINALS -->
+<section data-pane="terminals" class="hidden"><div class="wrap" style="padding-top:18px">
+  <h2>Terminal directory <small>AMC schedules are collected automatically; Facebook-only terminals are linked so you can check them and add flights under “My flights”.</small></h2>
+  <div class="filters"><input id="tq" placeholder="Search terminals…"><select id="tt"><option value="">All types</option><option>AMC</option><option>Non-AMC / Guard / Reserve</option></select></div>
+  <div id="tlist" class="grid2"></div>
+</div></section>
+
+<!-- MINE -->
+<section data-pane="mine" class="hidden"><div class="wrap" style="padding-top:18px">
+  <h2>My flights <small>Add a flight you saw on a Facebook page or heard on a terminal recording. It’s saved in this browser and included in searches.</small></h2>
+  <div class="form" id="mform">
+    <div class="ac"><label>From</label><input id="mfrom" autocomplete="off" placeholder="e.g. Lackland"><div class="acl hidden"></div></div>
+    <div class="ac"><label>To (first stop)</label><input id="mto" autocomplete="off" placeholder="e.g. Travis"><div class="acl hidden"></div></div>
+    <div class="ac"><label>Then (optional)</label><input id="mto2" autocomplete="off"><div class="acl hidden"></div></div>
+    <div><label>Date</label><input id="mdate" type="date"></div>
+    <div><label>Roll call</label><input id="mtime" type="time" value="09:00"></div>
+    <div><label>Seats</label><input id="mseats" placeholder="e.g. 20T, 5F, TBD"></div>
+    <button class="btn" id="madd">Add flight</button>
+  </div>
+  <div id="mlist" style="margin-top:14px"></div>
+</div></section>
+</div>
+
+<script>
+"use strict";
+/* ============================================================ utilities */
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+const store = {
+  get(k){ try { return JSON.parse(localStorage.getItem(k)); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} },
+  del(k){ try { localStorage.removeItem(k); } catch(e){} }
+};
+const DAY = 86400000;
+const fmtDate = iso => new Date(iso + "T12:00:00Z").toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric",timeZone:"UTC"});
+const miles = (a,b) => { if(a.lat==null||b.lat==null) return null; const R=3959,r=x=>x*Math.PI/180;
+  const dLa=r(b.lat-a.lat), dLo=r(b.lon-a.lon); const h=Math.sin(dLa/2)**2+Math.cos(r(a.lat))*Math.cos(r(b.lat))*Math.sin(dLo/2)**2;
+  return 2*R*Math.asin(Math.sqrt(h)); };
+
+/* ============================================================ login / decrypt */
+async function slotId(u){ const h = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("spacea-slot:" + u.trim().toLowerCase()));
+  return [...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,"0")).join("").slice(0,16); }
+async function gunzipJSON(buf){ const ds = new DecompressionStream("gzip");
+  const txt = await new Response(new Blob([buf]).stream().pipeThrough(ds)).text(); return JSON.parse(txt); }
+async function openWithDataKey(bundle, rawKey){
+  const dk = await crypto.subtle.importKey("raw", rawKey, "AES-GCM", false, ["decrypt"]);
+  const pt = await crypto.subtle.decrypt({name:"AES-GCM", iv:b64d(bundle.iv)}, dk, b64d(bundle.ct));
+  return gunzipJSON(pt);
+}
+async function unlock(bundle, user, pw){
+  const id = await slotId(user); const slot = bundle.slots.find(s => s.id === id);
+  if(!slot) throw new Error("bad");
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(user.trim().toLowerCase()+"\n"+pw), "PBKDF2", false, ["deriveKey"]);
+  const kek = await crypto.subtle.deriveKey({name:"PBKDF2", salt:b64d(slot.salt), iterations:bundle.iter, hash:"SHA-256"}, base, {name:"AES-GCM",length:256}, false, ["decrypt"]);
+  const raw = new Uint8Array(await crypto.subtle.decrypt({name:"AES-GCM", iv:b64d(slot.iv)}, kek, b64d(slot.wk)));
+  return { raw, data: await openWithDataKey(bundle, raw) };
+}
+async function fetchBundle(){ const r = await fetch("data.json?t=" + Date.now(), {cache:"no-store"}); if(!r.ok) throw new Error("nodata"); return r.json(); }
+
+let D = null; // decrypted payload
+async function tryRemembered(){
+  const rem = store.get("hop.rem"); if(!rem) return false;
+  try { const b = await fetchBundle(); const data = await openWithDataKey(b, b64d(rem.k)); start(data); return true; }
+  catch(e){ store.del("hop.rem"); return false; }  // bundle re-keyed each run -> remembered key expires
+}
+$("#lform").addEventListener("submit", async ev => {
+  ev.preventDefault(); $("#lerr").textContent = ""; $("#lbtn").innerHTML = '<span class="spinner"></span> Unlocking…';
+  try {
+    const b = await fetchBundle(); const {raw, data} = await unlock(b, $("#lu").value, $("#lp").value);
+    if($("#lrem").checked) store.set("hop.rem", {k: btoa(String.fromCharCode(...raw))}); // valid until next data refresh
+    store.set("hop.user", $("#lu").value); start(data);
+  } catch(e){ $("#lerr").textContent = e.message === "nodata" ? "Couldn’t load flight data. Try again in a minute." : "Wrong username or password."; }
+  $("#lbtn").textContent = "Sign in";
+});
+$("#logout").onclick = () => { store.del("hop.rem"); location.reload(); };
+$("#lu").value = store.get("hop.user") || "";
+
+/* ============================================================ places & resolution */
+let PL = {}, ALIAS = [], REG = {}, TERM = {};
+function norm(s){ return String(s||"").toUpperCase().replace(/[^A-Z0-9 ,/-]/g," ").replace(/\bAIR FORCE BASE\b/g,"AFB").replace(/\bAIR BASE\b/g,"AB").replace(/\bJOINT BASE\b/g,"JB").replace(/\s+/g," ").trim(); }
+function indexPlaces(){
+  PL = {}; ALIAS = [];
+  for(const p of D.places){ PL[p.key] = p; for(const a of [p.name, ...p.aliases, p.key]) ALIAS.push([norm(a), p.key]); }
+  // add unknown stops seen in data so they can be selected
+  for(const f of allFlights()) for(const s of f.stops) if(!PL[s.key]) PL[s.key] = {key:s.key, name:s.name, region:s.region, country:s.country, lat:null, lon:null, terminal:false, aliases:[]};
+  ALIAS.sort((a,b)=>b[0].length-a[0].length);
+  REG = D.regions; TERM = Object.fromEntries(D.terminals.map(t=>[t.key,t]));
+}
+const EUROPE = ["DE","GB","ES","IT","GR","TR","PT","IS","PL","RO","BE","NL","FR","NO","EE","LT","LV","BG","HU","CZ","GL"];
+const PACIFIC = ["JP","KR","GU","SG","AU","NZ","HI","AK","MH","UM","PH","TH","IO"];
+const MIDEAST = ["BH","QA","KW","DJ","AE","SA","JO","IL","EG","IQ"];
+function regionMatch(q){
+  const Q = norm(q).replace(/^(THE )/,"");
+  const st = Object.entries(REG.states).find(([c,n]) => n === Q || c === Q);
+  if(st) return {type:"state", code:st[0], label:st[1][0]+st[1].slice(1).toLowerCase()};
+  let cc = REG.aliases[Q] || (Object.entries(REG.countries).find(([c,n]) => n === Q)||[])[0];
+  if(cc) return {type:"country", code:cc, label:titleCase(REG.countries[cc]||Q)};
+  if(Q==="EUROPE") return {type:"group", codes:EUROPE, label:"Europe"};
+  if(Q==="PACIFIC"||Q==="ASIA") return {type:"group", codes:PACIFIC, label:"Pacific"};
+  if(Q==="MIDDLE EAST"||Q==="CENTCOM") return {type:"group", codes:MIDEAST, label:"Middle East"};
+  if(Q==="USA"||Q==="US"||Q==="UNITED STATES"||Q==="CONUS"||Q==="STATES") return {type:"country", code:"US", label:"United States"};
+  return null;
+}
+const titleCase = s => String(s).toLowerCase().replace(/\b\w/g,c=>c.toUpperCase());
+function inRegion(p, r){
+  if(!p) return false;
+  if(r.type==="state") return p.region===r.code;
+  if(r.type==="country") return p.country===r.code;
+  if(r.type==="group") return r.codes.includes(p.country) || r.codes.includes(p.region);
+  return false;
+}
+function placeMatch(q){
+  const Q = norm(q); if(Q.length<3) return null;
+  const exact = ALIAS.find(([a]) => a === Q); if(exact) return exact[1];
+  const sp = x => " " + x.replace(/[,/-]/g," ").replace(/\s+/g," ") + " ";
+  const hay = sp(Q); const hit = ALIAS.find(([a]) => a.length>=4 && hay.includes(sp(a))); if(hit) return hit[1];
+  const pre = ALIAS.find(([a]) => a.startsWith(Q)); if(pre && Q.length>=4) return pre[1];
+  return null;
+}
+let MYLOC = null; const MYLOC_LABEL = "My current location";
+async function geocode(q){
+  const cache = store.get("hop.geo") || {}; if(cache[q]) return cache[q];
+  const r = await fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&q=" + encodeURIComponent(q), {headers:{"Accept-Language":"en"}});
+  const j = await r.json(); if(!j.length) return null;
+  const g = {lat:+j[0].lat, lon:+j[0].lon, label:j[0].display_name.split(",").slice(0,3).join(",")};
+  cache[q] = g; store.set("hop.geo", cache); return g;
+}
+function nearestTerminals(pt, radius, n=6){
+  return Object.values(PL).filter(p=>p.terminal && p.lat!=null).map(p=>({p, d:miles(pt,p)})).filter(x=>x.d<=radius).sort((a,b)=>a.d-b.d).slice(0,n);
+}
+function geoBox(g, radius){
+  let near = nearestTerminals(g, radius, 10);
+  if(near.length < 3) near = nearestTerminals(g, 1e9, 3);
+  const pick = near.slice(0, 6);
+  return {label:g.label, keys:new Set(pick.map(x=>x.p.key)), near, kind:"geo", center:g, address:true};
+}
+/* Resolve a box into {label, keys:Set, near:[{p,d}], kind} */
+async function resolveBox(text, radius){
+  text = text.trim(); if(!text) return null;
+  if(text === MYLOC_LABEL && MYLOC) return geoBox(MYLOC, radius);
+  // a street address (starts with a house number) or ZIP code goes straight to the map lookup
+  const looksAddress = /^\d+\s+\S/.test(text) || /\b\d{5}(-\d{4})?\b/.test(text);
+  if(looksAddress){ const g = await geocode(text).catch(()=>null); if(g) return geoBox(g, radius); }
+  const pk = placeMatch(text);
+  if(pk){ const p = PL[pk]; const near = nearestTerminals(p, Math.min(radius,120)).filter(x=>x.p.key!==pk);
+    return {label:p.name, keys:new Set([pk, ...near.filter(x=>x.d<=60).map(x=>x.p.key)]), near, kind:"place", center:p}; }
+  const r = regionMatch(text);
+  if(r){ const keys = new Set(Object.values(PL).filter(p=>inRegion(p,r)).map(p=>p.key));
+    const ts = [...keys].map(k=>PL[k]).filter(p=>p.terminal&&p.lat!=null);
+    const center = ts.length ? {lat:ts.reduce((a,p)=>a+p.lat,0)/ts.length, lon:ts.reduce((a,p)=>a+p.lon,0)/ts.length} : null;
+    return {label:r.label, keys, near:[], kind:"region", region:r, center}; }
+  const g = await geocode(text).catch(()=>null);
+  if(!g) return {label:text, keys:new Set(), near:[], kind:"none"};
+  return geoBox(g, radius);
+}
+
+/* ============================================================ autocomplete */
+function acSuggest(q){
+  const Q = norm(q); if(Q.length<2) return [];
+  const out = [], seen = new Set();
+  for(const [c,n] of Object.entries(REG.states)) if(n.startsWith(Q)||c===Q) { out.push({t:titleCase(n), s:"US state"}); }
+  for(const [c,n] of Object.entries(REG.countries)) if(n.startsWith(Q)) out.push({t:titleCase(n), s:"Country"});
+  if("EUROPE".startsWith(Q)) out.push({t:"Europe", s:"Region"});
+  if("PACIFIC".startsWith(Q)) out.push({t:"Pacific", s:"Region"});
+  for(const [a,k] of ALIAS){ if(seen.has(k)) continue; if(a.includes(Q)){ seen.add(k); const p = PL[k]; out.push({t:p.name, s:(p.region||"")+(p.terminal?" · terminal":"")}); } if(out.length>12) break; }
+  return out.slice(0,10);
+}
+function wireAC(input){
+  const list = input.parentElement.querySelector(".acl"); let sel = -1;
+  const close = () => { list.classList.add("hidden"); sel=-1; };
+  input.addEventListener("input", () => {
+    const items = acSuggest(input.value);
+    if(!items.length){ list.innerHTML = input.value.trim().length>2 ? `<div data-v="${esc(input.value)}"><span>Search “${esc(input.value)}”</span><small>find nearest terminals</small></div>` : ""; }
+    else list.innerHTML = items.map(i=>`<div data-v="${esc(i.t)}"><span>${esc(i.t)}</span><small>${esc(i.s)}</small></div>`).join("");
+    list.classList.toggle("hidden", !list.innerHTML); sel=-1;
+  });
+  input.addEventListener("keydown", e => {
+    const els = [...list.children]; if(list.classList.contains("hidden")||!els.length) return;
+    if(e.key==="ArrowDown"||e.key==="ArrowUp"){ e.preventDefault(); sel = (sel + (e.key==="ArrowDown"?1:-1) + els.length) % els.length; els.forEach((x,i)=>x.classList.toggle("sel",i===sel)); }
+    if(e.key==="Enter" && sel>=0){ e.preventDefault(); input.value = els[sel].dataset.v; close(); }
+    if(e.key==="Escape") close();
+  });
+  list.addEventListener("mousedown", e => { const d = e.target.closest("div[data-v]"); if(d){ input.value = d.dataset.v; close(); } });
+  input.addEventListener("blur", () => setTimeout(close, 150));
+}
+
+/* ============================================================ flights & timing */
+function manualFlights(){ return (store.get("hop.mine")||[]).map(m => ({...m, manual:true})); }
+function allFlights(){ return [...(D.flights||[]), ...manualFlights()]; }
+const tzOff = p => (p && p.lon!=null) ? Math.round(p.lon/15) : -5;  // rough local offset (hours)
+function depUTC(f){ const [h,m] = (f.roll_call || "12:00").split(":").map(Number); const p = PL[f.origin];
+  return Date.parse(f.date+"T00:00:00Z") + (h+m/60 - tzOff(p))*3600e3 + 2*3600e3; } // takeoff ≈ roll call + 2h
+function legHours(a,b){ const d = (a&&b) ? miles(a,b) : null; return d==null ? 5 : d/430 + 0.6; }
+function arrivals(f){  // [{key, t}] for each stop, estimated
+  let t = depUTC(f), prev = PL[f.origin], out = [];
+  for(const s of f.stops){ const p = PL[s.key]; t += legHours(prev,p)*3600e3; out.push({key:s.key, t}); t += 1.5*3600e3; prev = p||prev; }
+  return out;
+}
+function seatInfo(f){
+  if(f.kind==="30day") return {cls:"b-pe", txt:"Scheduled (30-day)"+(f.note?" · "+f.note:""), score:1.6};
+  if(f.seat_status==="F" && f.seats>0) return {cls:"b-ok", txt:`${f.seats} firm`, score:3};
+  if(f.seat_status==="T" && f.seats>0) return {cls:"b-ok", txt:`${f.seats} tentative`, score:2.5};
+  if(f.seats===0) return {cls:"b-bad", txt:`0${f.seat_status? " "+f.seat_status:""} posted`, score:0.6};
+  if(f.seats>0) return {cls:"b-ok", txt:`${f.seats} seats`, score:2.2};
+  return {cls:"b-unk", txt:"TBD", score:1.2};
+}
+let HIST = {};
+function buildHistory(){
+  HIST = {};
+  for(const r of D.rollcalls||[]) for(const s of r.stops){ const k = r.origin+">"+s.key; (HIST[k] ||= []).push(r); }
+}
+function histFor(o, d){
+  const rs = HIST[o+">"+d]; if(!rs||!rs.length) return null;
+  const rel = rs.filter(r=>r.released!=null), withSeats = rel.filter(r=>r.released>0);
+  const cats = rs.map(r=>r.lowest_cat).filter(Boolean);
+  const order = ["I","II","III","IV","V","VI"]; const worst = cats.sort((a,b)=>order.indexOf(b)-order.indexOf(a))[0];
+  return { n: rs.length, withSeats: withSeats.length, avg: rel.length ? Math.round(rel.reduce((a,r)=>a+r.released,0)/rel.length) : null,
+           used: rs.reduce((a,r)=>a+(r.used||0),0), lowest: worst, last: rs[0].date };
+}
+
+/* ============================================================ route search */
+function searchRoutes(from, to, opts){
+  const last = new Date(Date.parse(opts.date) + opts.win*DAY).toISOString().slice(0,10);
+  const flights = allFlights().filter(f => f.date >= opts.date && f.date <= last && (opts.zero || !(f.seats===0)) && (opts.inc30 || f.kind!=="30day"));
+  const byOrigin = {}; for(const f of flights) (byOrigin[f.origin] ||= []).push(f);
+  for(const k in byOrigin) byOrigin[k].sort((a,b)=>depUTC(a)-depUTC(b));
+  const res = [], minLay = opts.lay*3600e3, earliest = Date.parse(opts.date+"T00:00:00Z") - 12*3600e3;
+  function dfs(at, readyT, legs, visited){
+    if(res.length > 400) return;
+    for(const f of byOrigin[at] || []){
+      const dt = depUTC(f); if(dt < readyT) continue;
+      if(legs.length && dt - readyT > opts.wait*DAY) break;  // sorted by time: everything after waits too long
+      const arr = arrivals(f);
+      arr.forEach((a, i) => {
+        if(visited.has(a.key)) return;
+        const leg = {f, offAt:i, to:a.key, arrT:a.t, depT:dt};
+        const path = [...legs, leg];
+        if(to.has(a.key)) { res.push(path); return; }
+        if(path.length < opts.maxLegs) dfs(a.key, a.t + minLay, path, new Set([...visited, a.key]));
+      });
+    }
+  }
+  for(const o of from) dfs(o, earliest, [], new Set([o]));
+  // dedupe identical leg sequences and score
+  const seen = new Set(), out = [];
+  for(const p of res){ const k = p.map(l=>l.f.id+">"+l.to).join("|"); if(seen.has(k)) continue; seen.add(k);
+    const odds = p.reduce((a,l)=>a*Math.min(1,seatInfo(l.f).score/3)*(histBoost(l)),1);
+    out.push({legs:p, arr:p[p.length-1].arrT, dep:p[0].depT, n:p.length, odds}); }
+  return out;
+}
+function histBoost(l){ const h = histFor(l.f.origin, l.to); if(!h) return 0.9; return h.withSeats ? 1 : 0.7; }
+
+/* "Hubs": terminals that recently flew to the destination (scheduled or roll-call history) */
+function hubsFor(to){
+  const hubs = {};
+  const add = (o, date, kind) => { const h = hubs[o] ||= {key:o, sched:0, past:0, last:null}; h[kind]++; if(!h.last || date>h.last) h.last = date; };
+  for(const f of allFlights()) if(f.stops.some(s=>to.has(s.key))) add(f.origin, f.date, "sched");
+  for(const r of D.rollcalls||[]) if(r.stops.some(s=>to.has(s.key))) add(r.origin, r.date, "past");
+  for(const s of D.seen_flights||[]) if(s.dests.some(k=>to.has(k))) add(s.origin, s.date, "past");
+  return Object.values(hubs).filter(h=>!to.has(h.key));
+}
+
+/* ============================================================ render search */
+let lastResults = [], sortMode = "arr";
+function termStats(key, other){
+  const o = searchOpts(), last = new Date(Date.parse(o.date) + o.win*DAY).toISOString().slice(0,10);
+  const fl = allFlights().filter(f => f.date >= o.date && f.date <= last && (o.inc30 || f.kind!=="30day"));
+  const out = fl.filter(f => f.origin===key), inn = fl.filter(f => f.stops.some(s=>s.key===key));
+  const toward = other ? out.filter(f => f.stops.some(s=>other.keys.has(s.key))).length : 0;
+  const from = other ? inn.filter(f => other.keys.has(f.origin)).length : 0;
+  const dests = [...new Set(out.flatMap(f=>f.stops.map(s=>PL[s.key]?.name||s.name)))].slice(0,4);
+  return {out:out.length, inn:inn.length, toward, from, dests};
+}
+function pickerHtml(box, side, other){
+  return `<div>Terminals near <b>${esc(box.label)}</b> — tick the ones you can get to:</div>` + box.near.map(x => {
+    const st = termStats(x.p.key, other), on = box.keys.has(x.p.key);
+    const hours = Math.max(1, Math.round(x.d/55));
+    const sched = side==="from"
+      ? (st.out ? `${st.out} departure(s) posted${st.dests.length?": "+esc(st.dests.join(", ")):""}` : "No departures posted in this window")
+      : (st.inn ? `${st.inn} arrival(s) posted` : "No arrivals posted in this window");
+    const t = TERM[x.p.key]; const fbOnly = t && !t.scrape;
+    const good = side==="from" ? st.toward : st.from;
+    return `<label class="tpick"><input type="checkbox" data-side="${side}" data-key="${esc(x.p.key)}" ${on?"checked":""}>
+      <span class="n">${esc(x.p.name)} ${good?`<span class="badge b-ok">${good} ${side==="from"?"toward":"from"} ${esc(other.label.split(",")[0])}</span>`:""}</span>
+      <span class="d">${Math.round(x.d).toLocaleString()} mi · ${x.d<900?"~"+hours+" h drive":"fly/hop"}</span>
+      <span class="s">${sched}${fbOnly?` · this terminal posts on <a href="${esc(t.facebook)}" target="_blank" rel="noopener">Facebook</a> — add what you see under My flights`:""}</span></label>`; }).join("");
+}
+function renderResolved(from, to){
+  const box = (b, side, other) => b.address ? pickerHtml(b, side, other) : chipList(b);
+  $("#resolved").classList.remove("hidden");
+  $("#resolved").innerHTML = `<div class="rbox"><h4>Leaving from</h4>${box(from,"from",to)}</div><div class="rbox"><h4>Going to</h4>${box(to,"to",from)}</div>`;
+  $$("#resolved input[data-side]").forEach(cb => cb.onchange = () => {
+    const b = BOXES[cb.dataset.side]; cb.checked ? b.keys.add(cb.dataset.key) : b.keys.delete(cb.dataset.key); doSearch(); });
+}
+function chipList(box){
+  if(!box) return "";
+  if(box.kind==="region"){ const ts = [...box.keys].map(k=>PL[k]).filter(p=>p&&p.terminal); return `<div><b>${esc(box.label)}</b> — ${ts.length} terminal(s)</div>` + ts.slice(0,14).map(p=>`<span class="chip">${esc(p.name)}</span>`).join("") + (ts.length>14?`<span class="chip alt">+${ts.length-14} more</span>`:""); }
+  if(box.kind==="place"){ return `<span class="chip">${esc(box.label)}</span>` + box.near.filter(x=>x.d<=60).map(x=>`<span class="chip alt">${esc(x.p.name)} · ${Math.round(x.d)} mi</span>`).join(""); }
+  if(box.kind==="geo"){ if(!box.near.length) return `<div>No terminals within range of <b>${esc(box.label)}</b>. Try a bigger radius.</div>`;
+    return `<div>No terminal at <b>${esc(box.label)}</b>. Nearest terminals:</div>` + box.near.map(x=>`<span class="chip">${esc(x.p.name)} · ${Math.round(x.d)} mi (~${Math.max(1,Math.round(x.d/55))} h drive)</span>`).join(""); }
+  return `<div>Couldn’t find “${esc(box.label)}”.</div>`;
+}
+async function runSearch(){
+  const ft = $("#qfrom").value, tt = $("#qto").value; if(!ft||!tt) return;
+  $("#results").innerHTML = '<div class="empty"><span class="spinner"></span> Searching…</div>';
+  const radius = +$("#qrad").value;
+  const [from, to] = await Promise.all([resolveBox(ft, radius), resolveBox(tt, radius)]);
+  store.set("hop.last", {ft, tt});
+  BOXES = {from, to};
+  doSearch();
+}
+let BOXES = null;
+function searchOpts(){ return {date:$("#qdate").value, maxLegs:+$("#qlegs").value, lay:+$("#qlay").value, zero:$("#qzero").checked,
+  win:+$("#qwin").value, wait:+$("#qwait").value, inc30:$("#q30").checked}; }
+function doSearch(){
+  const {from, to} = BOXES;
+  renderResolved(from, to);
+  if(!from.keys.size || !to.keys.size){ $("#results").innerHTML = '<div class="empty">Pick at least one terminal on each side, or widen the radius.</div>'; return; }
+  lastResults = searchRoutes(from.keys, to.keys, searchOpts());
+  renderResults(from, to);
+}
+function renderResults(from, to){
+  const R = [...lastResults];
+  const sorters = {arr:(a,b)=>a.arr-b.arr||a.n-b.n, legs:(a,b)=>a.n-b.n||a.arr-b.arr, odds:(a,b)=>b.odds-a.odds||a.arr-b.arr, dep:(a,b)=>a.dep-b.dep};
+  R.sort(sorters[sortMode]);
+  const best = {arr: R.length && [...R].sort(sorters.arr)[0], legs: R.length && [...R].sort(sorters.legs)[0], odds: R.length && [...R].sort(sorters.odds)[0]};
+  let h = `<h2>${R.length ? R.length + " route" + (R.length>1?"s":"") : "No posted routes"} <small>from ${esc(from.label)} to ${esc(to.label)} in the posted schedules</small></h2>`;
+  if(R.length){
+    h += `<div class="sortbar">${[["arr","Soonest arrival"],["dep","Soonest departure"],["legs","Fewest hops"],["odds","Best seat odds"]].map(([k,t])=>`<button data-sort="${k}" class="${sortMode===k?"on":""}">${t}</button>`).join("")}</div>`;
+    h += R.slice(0,40).map((r,i) => itinCard(r, i, best, from, to)).join("");
+  } else {
+    h += `<div class="empty">Nothing in the posted 72-hour and 30-day schedules connects these places within your search window${D.flights.length?"":" (no schedules loaded yet)"}. Try a longer window or longer max wait, check back later (schedules update several times a day), or use the terminals below.</div>`;
+  }
+  h += hubsHtml(from, to);
+  $("#results").innerHTML = h;
+  $$("#results [data-sort]").forEach(b => b.onclick = () => { sortMode = b.dataset.sort; renderResults(from, to); });
+  $$("#results .itin .top").forEach(t => t.onclick = () => t.parentElement.querySelector(".legs").classList.toggle("hidden"));
+}
+const fmtT = (t, key) => new Date(t + tzOff(PL[key])*3600e3).toLocaleString(undefined,{weekday:"short",month:"short",day:"numeric",hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"UTC"}) + " local";
+function groundHtml(fromPt, toPt, label){
+  if(!fromPt || !toPt || fromPt.lat==null || toPt.lat==null) return "";
+  const d = miles(fromPt, toPt); if(d < 3) return "";
+  return `<div class="ground"><div class="t" style="font-weight:600">Drive</div><div class="dot"></div><div>${esc(label)} · <b>${Math.round(d).toLocaleString()} mi</b>${d<900?` (~${Math.max(1,Math.round(d/55))} h)`:" (likely a commercial flight)"}</div></div>`;
+}
+function itinCard(r, i, best, from, to){
+  const first = r.legs[0], last = r.legs[r.legs.length-1];
+  const tags = []; if(best.arr===r) tags.push("Soonest arrival"); if(best.legs===r && r.n>0) tags.push("Fewest hops"); if(best.odds===r) tags.push("Best odds");
+  const via = r.legs.slice(0,-1).map(l=>PL[l.to]?.name||l.to);
+  const days = Math.max(0, Math.round((Date.parse(last.f.date) - Date.parse(first.f.date))/DAY));
+  let legsH = "";
+  const o0 = PL[first.f.origin], dN = PL[last.to];
+  const startG = from && from.address ? groundHtml(from.center, o0, `From ${from.label.split(",")[0]} to ${o0?.name}`) : "";
+  const endG = to && to.address ? groundHtml(dN, to.center, `From ${dN?.name} to ${to.label.split(",")[0]}`) : "";
+  legsH += startG;
+  r.legs.forEach((l, k) => {
+    const f = l.f, o = PL[f.origin], dst = PL[l.to], si = seatInfo(f);
+    const thru = f.stops.slice(0, l.offAt).map(s=>s.name);
+    const hst = histFor(f.origin, l.to); const t = TERM[f.origin];
+    if(k>0){ const gap = (l.depT - r.legs[k-1].arrT)/3600e3; legsH += `<div class="lay">⏱ About ${gap<24?Math.round(gap)+" h":Math.round(gap/24*10)/10+" days"} connection at ${esc(PL[r.legs[k-1].to]?.name)}</div>`; }
+    legsH += `<div class="leg"><div class="t">${f.roll_call?esc(f.roll_call):"TBA"}<small>${esc(fmtDate(f.date))}</small><small>${f.roll_call?"roll call (local)":"roll call posted ~72 h prior"}</small></div><div class="dot"></div><div>
+      <h5>${esc(o?.name||f.origin)} → ${esc(dst?.name||l.to)} <span class="badge ${f.manual?"b-man":si.cls}">${f.manual?"Added by you · ":""}${esc(si.txt)}</span></h5>
+      <div class="sub">${thru.length?"Stops first at "+esc(thru.join(", "))+" · ":""}${f.stops.length>l.offAt+1?"Continues to "+esc(f.stops.slice(l.offAt+1).map(s=>s.name).join(", "))+" · ":""}est. arrival ${esc(fmtT(l.arrT, l.to))}</div>
+      ${hst?`<div class="hist">Recent roll calls ${esc(o?.name)}→${esc(dst?.name)}: <b>${hst.n}</b> flight(s), ${hst.withSeats} released seats${hst.avg!=null?` (avg ${hst.avg})`:""}${hst.used?`, ${hst.used} Space-A pax flew`:""}${hst.lowest?`, lowest category selected: <b>Cat ${esc(hst.lowest)}</b>`:""} · last ${esc(fmtDate(hst.last))}</div>`:`<div class="hist">No recent roll-call history for this pairing.</div>`}
+      <div class="sub" style="margin-top:6px">${f.source?`<a href="${esc(f.source)}" target="_blank" rel="noopener">Source schedule</a> · `:""}${t?.phone?`Terminal ${esc(t.phone)} · `:""}${t?`<a href="${esc(t.page)}" target="_blank" rel="noopener">Terminal page</a>`:""}</div>
+    </div></div>`;
+  });
+  legsH += endG;
+  const oddsTxt = r.odds>0.7?["b-ok","Good"]:r.odds>0.3?["b-warn","Fair"]:["b-bad","Long shot"];
+  return `<div class="itin"><div class="top">
+      <div class="route">${esc(PL[first.f.origin]?.name)} → ${esc(PL[last.to]?.name)}<small>${r.n===1?"Direct":r.n-1+" connection"+(r.n>2?"s":"")+" via "+esc(via.join(", "))}${r.legs.some(l=>l.f.kind==="30day")?" · includes scheduled (30-day) flights":""}${from&&from.address&&o0&&from.center?" · "+Math.round(miles(from.center,o0))+" mi from you":""}</small></div>
+      <div class="meta"><div><b>${esc(fmtDate(first.f.date))}</b>${first.f.roll_call?"roll call "+esc(first.f.roll_call):"roll call TBA"}</div><div><b>${esc(fmtT(r.arr, last.to).split(",").slice(0,2).join(","))}</b>est. arrive</div><div><b>${r.n}</b>hop${r.n>1?"s":""}</div><div><b><span class="badge ${oddsTxt[0]}">${oddsTxt[1]}</span></b>seat odds</div></div>
+      ${tags.map(t=>`<span class="tag">${t}</span>`).join(" ")}
+    </div><div class="legs ${i===0?"":"hidden"}">${legsH}</div></div>`;
+}
+function hubsHtml(from, to){
+  const center = from.center || [...from.keys].map(k=>PL[k]).find(p=>p&&p.lat!=null);
+  let hubs = hubsFor(to.keys).map(h => ({...h, d: center && PL[h.key] ? miles(center, PL[h.key]) : null}));
+  hubs.sort((a,b) => (a.d ?? 1e9) - (b.d ?? 1e9)); hubs = hubs.slice(0, 8); if(!hubs.length) return "";
+  const rows = hubs.map(h => { const p = PL[h.key]; const d = center && p ? miles(center, p) : null; const t = TERM[h.key];
+    return `<div class="hub"><div><b>${esc(p?.name||h.key)}</b><div class="sub" style="color:var(--ink2);font-size:13px">${h.sched?`<span class="badge b-ok">${h.sched} posted now</span> `:""}${h.past?`${h.past} recent flight(s) to ${esc(to.label)}`:""} · last ${esc(fmtDate(h.last))}</div></div>
+      <div style="text-align:right;font-size:14px">${d!=null?`<b>${Math.round(d).toLocaleString()} mi</b> from ${esc(from.label)}<br><span style="color:var(--mute)">${d<15?"you're here":d<900?"~"+Math.max(1,Math.round(d/55))+" h drive":"commercial flight or a hop"}</span>`:""}${t?`<br><a href="${esc(t.page)}" target="_blank" rel="noopener">Schedules</a>`:""}</div></div>`; }).join("");
+  return `<h2>Best jumping-off terminals for ${esc(to.label)} <small>terminals with posted or recent flights there, nearest to you first — get yourself to one of these</small></h2><div class="rbox">${rows}</div>`;
+}
+
+/* ============================================================ board / terminals / mine */
+function renderBoard(){
+  const q = norm($("#bq").value), day = $("#bday").value, kind = $("#bkind").value;
+  const rows = allFlights().filter(f => (!day || f.date===day) && (!kind || (f.kind||"72hr")===kind) && (!q || norm([PL[f.origin]?.name, f.origin, ...f.stops.map(s=>s.name+" "+(s.region||"")+" "+(REG.states[s.region]||REG.countries[s.country]||""))].join(" ")).includes(q)))
+    .sort((a,b)=>a.date.localeCompare(b.date)||(a.roll_call||"99").localeCompare(b.roll_call||"99"));
+  $("#bcount").textContent = `${rows.length} flight(s)`;
+  $("#board").innerHTML = rows.length ? `<table><tr><th>Date</th><th>Roll call</th><th>From</th><th>To</th><th>Seats</th><th></th></tr>${rows.map(f=>{const si=seatInfo(f);
+    return `<tr><td>${esc(fmtDate(f.date))}</td><td>${f.roll_call?esc(f.roll_call):"TBA"}</td><td>${esc(PL[f.origin]?.name||f.origin)}</td><td>${f.stops.map(s=>esc(s.name)).join(" → ")}</td><td><span class="badge ${f.manual?"b-man":si.cls}">${esc(si.txt)}</span></td><td>${f.source?`<a href="${esc(f.source)}" target="_blank" rel="noopener">PDF</a>`:(f.manual?"yours":"")}</td></tr>`}).join("")}</table>` : '<div class="empty">No flights match.</div>';
+}
+function renderTerminals(){
+  const q = norm($("#tq").value), ty = $("#tt").value; const st = Object.fromEntries((D.status||[]).map(s=>[s.key,s]));
+  const ts = D.terminals.filter(t => (!ty||t.type===ty) && (!q || norm(t.name+" "+(PL[t.key]?.region||"")).includes(q)));
+  $("#tlist").innerHTML = ts.map(t => { const s = st[t.key]; let line = "";
+    if(t.scrape){ const docs = s?.docs||[]; const stale = s?.latest_date && s.latest_date < new Date(Date.now()-2*DAY).toISOString().slice(0,10);
+      line = s ? (s.error ? `<span class="badge b-bad">${esc(s.error)}</span>` : `<span class="badge ${s.flights?"b-ok":"b-unk"}">${s.flights} flight(s)</span> <span class="badge b-unk">${s.rollcalls} roll calls</span>${stale?' <span class="badge b-warn">schedule looks old</span>':""}${docs.some(d=>d.method==="ocr")?' <span class="badge b-unk">read by OCR</span>':""}${s.planned?` <span class="badge b-pe">${s.planned} scheduled (30-day)</span>`:""}`) : `<span class="badge b-unk">not checked yet</span>`; }
+    else line = `<span class="badge b-warn">Posts on Facebook / phone</span>`;
+    return `<div class="term"><h4>${esc(t.name)}</h4><div style="color:var(--mute);font-size:13px">${esc(t.type)}${PL[t.key]?.region?" · "+esc(PL[t.key].region):""}</div><div style="margin-top:6px">${line}</div>
+      <div class="links"><a href="${esc(t.page)}" target="_blank" rel="noopener">Website</a><a href="${esc(t.facebook)}" target="_blank" rel="noopener">Facebook</a>${t.phone?`<span>☎ ${esc(t.phone)}</span>`:""}</div></div>`; }).join("");
+}
+function renderMine(){
+  const m = store.get("hop.mine") || [];
+  $("#mlist").innerHTML = m.length ? `<table><tr><th>Date</th><th>Roll call</th><th>From</th><th>To</th><th>Seats</th><th></th></tr>${m.map((f,i)=>`<tr><td>${esc(fmtDate(f.date))}</td><td>${esc(f.roll_call)}</td><td>${esc(PL[f.origin]?.name)}</td><td>${f.stops.map(s=>esc(s.name)).join(" → ")}</td><td>${esc(seatInfo(f).txt)}</td><td><button class="btn ghost small" data-del="${i}">Remove</button></td></tr>`).join("")}</table>` : '<div class="empty">No flights added yet.</div>';
+  $$("#mlist [data-del]").forEach(b => b.onclick = () => { m.splice(+b.dataset.del,1); store.set("hop.mine", m); renderMine(); });
+}
+$("#madd").onclick = () => {
+  const o = placeMatch($("#mfrom").value), a = placeMatch($("#mto").value), b = $("#mto2").value ? placeMatch($("#mto2").value) : null;
+  if(!o || !a || !$("#mdate").value){ alertBox("Pick a known base for From and To, and a date."); return; }
+  const tok = ($("#mseats").value||"TBD").toUpperCase().replace(/\s/g,""); let seats=null, st="TBD", mm;
+  if((mm = tok.match(/^(\d+)([TF])?$/))){ seats=+mm[1]; st=mm[2]||null; } else if((mm = tok.match(/^([TF])-?(\d+)$/))){ seats=+mm[2]; st=mm[1]; }
+  const stops = [a,b].filter(Boolean).map(k=>({key:k, name:PL[k].name, region:PL[k].region, country:PL[k].country, known:true}));
+  const m = store.get("hop.mine") || []; m.push({id:"m"+Date.now(), origin:o, date:$("#mdate").value, roll_call:$("#mtime").value||"09:00", stops, seats, seat_status:st});
+  store.set("hop.mine", m); renderMine(); ["#mto","#mto2","#mseats"].forEach(s=>$(s).value="");
+};
+function alertBox(msg){ const d = document.createElement("div"); d.className="empty"; d.style.marginTop="10px"; d.textContent = msg; $("#mform").after(d); setTimeout(()=>d.remove(), 4000); }
+
+/* ============================================================ start */
+function start(data){
+  D = data; indexPlaces(); buildHistory();
+  $("#login").classList.add("hidden"); $("#app").classList.remove("hidden");
+  const g = new Date(D.generated); const mins = Math.round((Date.now()-g)/60000);
+  const n72 = D.flights.filter(f=>f.kind!=="30day").length, n30 = D.flights.length - n72;
+  $("#fresh").innerHTML = `Updated <b>${mins<90?mins+" min":Math.round(mins/60)+" h"} ago</b> · ${n72} in 72-hr lists · ${n30} scheduled (30-day)`;
+  const today = new Date().toISOString().slice(0,10); $("#qdate").value = today; $("#mdate").value = today;
+  ["#qfrom","#qto","#mfrom","#mto","#mto2"].forEach(s=>wireAC($(s)));
+  const last = store.get("hop.last"); if(last){ $("#qfrom").value = last.ft; $("#qto").value = last.tt; }
+  const days = [...new Set(allFlights().map(f=>f.date))].sort();
+  $("#bday").innerHTML = `<option value="">All dates</option>` + days.map(d=>`<option value="${d}">${esc(fmtDate(d))}</option>`).join("");
+  renderBoard(); renderTerminals(); renderMine();
+}
+$("#go").onclick = runSearch;
+["#qfrom","#qto"].forEach(s => $(s).addEventListener("keydown", e => { if(e.key==="Enter" && $(s).parentElement.querySelector(".acl").classList.contains("hidden")) runSearch(); }));
+$("#swap").onclick = () => { const a = $("#qfrom").value; $("#qfrom").value = $("#qto").value; $("#qto").value = a; };
+$("#bq").oninput = renderBoard; $("#bday").onchange = renderBoard; $("#bkind").onchange = renderBoard;
+["#qwin","#qwait","#q30","#qzero","#qlay","#qlegs"].forEach(s => $(s).addEventListener("change", () => { if(BOXES) doSearch(); }));
+$("#myloc").onclick = () => {
+  if(!navigator.geolocation){ $("#qfrom").value = ""; $("#qfrom").placeholder = "Location not available — type your address"; return; }
+  $("#myloc").textContent = "Finding you…";
+  navigator.geolocation.getCurrentPosition(pos => { MYLOC = {lat:pos.coords.latitude, lon:pos.coords.longitude, label:MYLOC_LABEL};
+      $("#qfrom").value = MYLOC_LABEL; $("#myloc").textContent = "Use my current location"; },
+    () => { $("#myloc").textContent = "Couldn’t get location — type your address instead"; }, {timeout:10000}); }; $("#tq").oninput = renderTerminals; $("#tt").onchange = renderTerminals;
+$$("#tabs button").forEach(b => b.onclick = () => { $$("#tabs button").forEach(x=>x.classList.toggle("on", x===b)); $$("[data-pane]").forEach(p=>p.classList.toggle("hidden", p.dataset.pane!==b.dataset.tab)); if(b.dataset.tab==="mine") renderMine(); if(b.dataset.tab==="board") renderBoard(); });
+tryRemembered();
+</script>
+</body>
+</html>
